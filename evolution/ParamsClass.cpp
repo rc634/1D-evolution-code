@@ -44,6 +44,38 @@ void ParamsClass::loadParams()
                     std::cerr << "Error: Invalid value for x_max." << std::endl;
                 }
             } 
+
+            else if (paramName == "alpha") 
+            {
+                if (!(iss >> m_alpha)) 
+                {
+                    std::cerr << "Error: Invalid value for alpha." << std::endl;
+                }
+            } 
+
+            else if (paramName == "order") 
+            {
+                if (!(iss >> m_order)) 
+                {
+                    std::cerr << "Error: Invalid value for m_order." << std::endl;
+                }
+            } 
+
+            else if (paramName == "bc_position") 
+            {
+                if (!(iss >> m_bc_pos)) 
+                {
+                    std::cerr << "Error: Invalid value for BC position." << std::endl;
+                }
+            } 
+
+            else if (paramName == "bc_type") 
+            {
+                if (!(iss >> m_bc_type)) 
+                {
+                    std::cerr << "Error: Invalid value for BC type." << std::endl;
+                }
+            } 
             
             else 
             {
@@ -59,6 +91,27 @@ void ParamsClass::loadParams()
     {
         std::cerr << "Error: Invalid value for gridpoints." << std::endl;
     }
+
+    if (m_x_min >= m_x_max) 
+    {
+        std::cerr << "Error: x_min must be smaller than x_max." << std::endl;
+    }
+
+    // calculate determined parameters
+    m_gridpoints_phys = m_gridpoints; // non-ghost gridpoints
+    m_gridpoints += m_order;
+
+    if (m_bc_pos == 0) // midpoint
+    {
+        m_dx = (m_x_max-m_x_min)/((double) m_gridpoints_phys);
+    }
+    else if (m_bc_pos == 1) //centred
+    {
+        m_dx = (m_x_max-m_x_min)/((double) m_gridpoints_phys -1 );
+    }
+
+    
+
 }
 
 #endif // PARAMSCLASS_CPP

@@ -9,9 +9,15 @@ public:
 
     // default params - do not rely on
     int m_gridpoints;
+    int m_gridpoints_phys;
     double m_x_min;
     double m_x_max;
+    double m_alpha;
     std::string m_filename;
+    double m_dx;
+    int m_order;
+    int m_bc_pos;
+    int m_bc_type;
 
     // Constructor that initializes the vector with a specified length
     ParamsClass(std::string a_filename);

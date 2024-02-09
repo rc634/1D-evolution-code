@@ -37,33 +37,28 @@ int main(int argc, char* argv[])
 
     ParamsClass params(argv[1]);
     params.loadParams();
-
-    const double x_min = params.m_x_min;
-    const double x_max = params.m_x_max;
-    const int gridpoints = params.m_gridpoints;
-    const double dx = (x_max - x_min) / (gridpoints - 1);
     
 
     ///////////
-    // field init
+    // initialise each field
 
-    
-
-    std::vector<FieldClass> all_fields;
 
     // initialise fields
-    FieldClass psi(gridpoints, x_min, x_max, "psi");
-    FieldClass pi(gridpoints, x_min, x_max, "pi");
+    FieldClass psi(params, "psi");
+    FieldClass pi(params, "pi");
 
     // gaussian for psi, not pi (pi is initial momentum)
     psi.initialiseGaussian(0.,1.,3.);
+
+    // set of all fields
+    std::vector<FieldClass> all_fields;
 
     // add fields to set of all fields
     all_fields.push_back(psi);
     all_fields.push_back(pi);
     
     // add all fields to physics class
-    PhysicsClass waveEQN(gridpoints, x_min, x_max, all_fields);
+    PhysicsClass waveEQN(params, all_fields);
 
     //save data
     waveEQN.saveData();

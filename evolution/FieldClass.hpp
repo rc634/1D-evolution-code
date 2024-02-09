@@ -2,6 +2,7 @@
 #define FIELDCLASS_HPP
 
 #include <vector>
+#include "ParamsClass.hpp"
 
 class FieldClass {
 
@@ -12,11 +13,14 @@ private:
     double m_x_min;
     double m_x_max;
     double m_dx;
+    int m_bc_type;
+    int m_bc_pos;
+    int m_order;
     std::string m_field_name;
 
 public:
     // Constructor that initializes the vector with a specified length
-    FieldClass(int length, double a_x_min, double a_x_max, std::string a_name);
+    FieldClass(ParamsClass &a_params, std::string a_name);
 
     // Function to set a value at a specific index in the vector
     void setValue(int index, double value);
@@ -29,6 +33,12 @@ public:
 
     // save data to dat file 
     void saveData() const;
+
+    // apply symmetric boundary conditions
+    void applyBC_symmetric_4th();
+
+    // fetch x coordinate at point i, taking into acount ghosts adn boundary positions
+    double getX(int i) const; 
 };
 
 
