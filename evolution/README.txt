@@ -1,5 +1,7 @@
 The automatic data deleting needs c++-17 so compile with 
 
+THIS IS A WAVE EQUATION SIMULATOR
+
 g++ -std=c++17 main.cpp -o prog
 
 and run with ./prog
