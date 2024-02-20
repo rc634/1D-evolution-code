@@ -76,6 +76,22 @@ void ParamsClass::loadParams()
                     std::cerr << "Error: Invalid value for BC type." << std::endl;
                 }
             } 
+
+            else if (paramName == "n_timesteps") 
+            {
+                if (!(iss >> m_n_timesteps)) 
+                {
+                    std::cerr << "Error: Invalid value n_timesteps." << std::endl;
+                }
+            } 
+
+            else if (paramName == "save_freq") 
+            {
+                if (!(iss >> m_save_freq)) 
+                {
+                    std::cerr << "Error: Invalid value save_freq." << std::endl;
+                }
+            } 
             
             else 
             {

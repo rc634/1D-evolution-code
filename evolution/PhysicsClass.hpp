@@ -14,17 +14,31 @@ private:
     double m_dx;
     double m_alpha;
     int m_order;
-
-    std::vector<FieldClass> &m_all_fields;
-    FieldClass &m_psi;
-    FieldClass &m_pi;
+    int m_num_fields;
+    double m_dt;
+    double m_time = 0.;
+    ParamsClass m_params;
 
 public:
+  
+    std::vector<FieldClass*> m_fields;
+
+    FieldClass m_phi;
+    FieldClass m_psi;
+
+
+
     // Constructor that initializes the vector with a specified length
-    PhysicsClass(ParamsClass &a_params, std::vector<FieldClass> &a_all_fields);
+    PhysicsClass(ParamsClass &a_params);
 
     // save data to dat file 
     void saveData();
+
+private:
+
+    void InitialiseArrays();
+
+    void applyBC();
 
 };
 

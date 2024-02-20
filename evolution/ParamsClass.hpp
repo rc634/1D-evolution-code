@@ -18,6 +18,8 @@ public:
     int m_order;
     int m_bc_pos;
     int m_bc_type;
+    int m_n_timesteps;
+    int m_save_freq;
 
     // Constructor that initializes the vector with a specified length
     ParamsClass(std::string a_filename);

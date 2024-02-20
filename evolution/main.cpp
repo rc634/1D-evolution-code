@@ -1,4 +1,5 @@
 #include <iostream>
+#include <filesystem>
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -8,16 +9,20 @@
 #include "FieldClass.hpp" 
 #include "ParamsClass.hpp"
 #include "PhysicsClass.hpp"
+#include "EvolutionClass.hpp"
 
 
-// Temporary gaussian function here 
-// Function to calculate Gaussian wavepacket
-double gaussianWavepacket(double x, double mean, double sigma) 
-{
-    return exp(-0.5 * pow((x - mean) / sigma, 2.0));
+//clean working directory of old data
+void deleteLocalDatFiles() {
+    std::string directory = "./"; // Specify the directory here
+
+    for (const auto& entry : std::filesystem::directory_iterator(directory)) {
+        if (entry.path().extension() == ".dat") {
+            std::filesystem::remove(entry.path());
+            std::cout << "Deleted: " << entry.path() << std::endl;
+        }
+    }
 }
-
-
 
 
 
@@ -31,40 +36,31 @@ int main(int argc, char* argv[])
     }
     std::cout << "Parameter file name : " << argv[1] << std::endl;
 
+    //////////////
+    // delete dat files in dir
+
+    deleteLocalDatFiles();
+
 
     ///////////////
     // params 
 
     ParamsClass params(argv[1]);
     params.loadParams();
+
+    /////////////
+    // evolve PDE
     
+    EvolutionClass waveEQN(params);
+
+    waveEQN.do_rk4_step(params.m_n_timesteps);
+
+    ////////////
+    // data saved automatically
+
 
     ///////////
-    // initialise each field
-
-
-    // initialise fields
-    FieldClass psi(params, "psi");
-    FieldClass pi(params, "pi");
-
-    // gaussian for psi, not pi (pi is initial momentum)
-    psi.initialiseGaussian(0.,1.,3.);
-
-    // set of all fields
-    std::vector<FieldClass> all_fields;
-
-    // add fields to set of all fields
-    all_fields.push_back(psi);
-    all_fields.push_back(pi);
+    // end
     
-    // add all fields to physics class
-    PhysicsClass waveEQN(params, all_fields);
-
-    //save data
-    waveEQN.saveData();
-    
-
-
-
     return 0;
 }
