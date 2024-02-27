@@ -15,6 +15,7 @@ private:
     double m_alpha;
     int m_order;
     int m_num_fields;
+    int m_bc_pos;
     double m_dt;
     double m_time = 0.;
     ParamsClass m_params;
@@ -25,6 +26,11 @@ public:
 
     FieldClass m_phi;
     FieldClass m_psi;
+
+    // This is a field class to make use of the save functions
+    // but it is not included into m_fields to avoid it's 
+    // use later in the rk4 steps
+    FieldClass m_x;
 
 
 

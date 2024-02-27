@@ -30,10 +30,7 @@ EvolutionClass::EvolutionClass(ParamsClass &a_params) :
 
 void EvolutionClass::saveData()
 {
-    for (const auto field_ptr : m_old.m_fields)
-    {
-        field_ptr->saveData();
-    }
+    m_old.saveData();
 }
 
 void EvolutionClass::applyBC()
