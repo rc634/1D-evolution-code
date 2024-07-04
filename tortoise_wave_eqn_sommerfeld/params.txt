@@ -1,0 +1,10 @@
+gridpoints 5000 # was 760
+x_min -55.0 # was -28.0
+x_max 180.0 # 62.0
+alpha 0.25 # courant condition
+n_timesteps 200000
+save_freq 100
+order 4 # half this many ghosts each side
+bc_position 1 # 0 is midpoint, 1 is centred
+bc_type 2 # 0 is symmetric, 1 periodic, 2 outgoing wave/sommerfeld
+r_ext 170. # extractino radius for phi, psi, must be < x_max

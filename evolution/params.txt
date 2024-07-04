@@ -1,0 +1,9 @@
+gridpoints 200
+x_min -10.0
+x_max 10.0
+alpha 0.25 # courant condition
+n_timesteps 2000
+save_freq 5
+order 4 # half this many ghosts each side 
+bc_position 0 # 0 is midpoint, 1 is centred
+bc_type 0 # 0 is symmetric
